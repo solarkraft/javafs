@@ -1,11 +1,11 @@
 plugins {
     id 'java'
-    id 'maven'
+    id 'maven-publish'
     id 'signing'
 }
 
 sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+targetCompatibility = '1.12'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
@@ -28,12 +28,12 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.jnr:jnr-ffi:2.0.3'    
-    compile 'com.github.jnr:jnr-posix:3.0.17'
+    implementation 'com.github.jnr:jnr-ffi:2.0.3'    
+    implementation 'com.github.jnr:jnr-posix:3.0.17'
     
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.truth0:truth:0.23'
-    testCompile 'com.google.jimfs:jimfs:1.0'
+    // testCompile 'junit:junit:4.12'
+    // testCompile 'org.truth0:truth:0.23'
+    // testCompile 'com.google.jimfs:jimfs:1.0'
 }
 
 tasks.withType(JavaExec) {
@@ -74,55 +74,56 @@ signing {
     sign configurations.archives
 }
 
-if (!project.hasProperty("sonatypeUsername") || !project.hasProperty("sonatypePassword")) {
-    println "sonatype username or password not set"
-    ext.sonatypeUsername = ""
-    ext.sonatypePassword = ""
-}
+// if (!project.hasProperty("sonatypeUsername") || !project.hasProperty("sonatypePassword")) {
+//     println "sonatype username or password not set"
+//     ext.sonatypeUsername = ""
+//     ext.sonatypePassword = ""
+// }
 
 uploadArchives {
     repositories {
-        mavenDeployer {
-            beforeDeployment { deployment -> signing.signPom(deployment) }
+        // mavenDeployer {
+        //     beforeDeployment { deployment -> signing.signPom(deployment) }
 
-            repository(
-                url: (isReleaseVersion ?
-	                        "https://oss.sonatype.org/service/local/staging/deploy/maven2" :
-	                        "https://oss.sonatype.org/content/repositories/snapshots")) {
-                // User and Password are taken from ~/.gradle/gradle.properties
-                authentication(userName: project.sonatypeUsername, password: project.sonatypePassword)
-            }
-            pom.project {
-                name project.name
-                packaging 'jar'
-                description project.description
-                url project.url
-                scm {
-                    url project.scmUrl
-                    connection project.scmConnection
-                    developerConnection project.scmConnection
-                }
-                licenses {
-                    license {
-                        name project.licenseName
-                        url project.licenseUrl
-                        distribution 'repo'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'pron'
-                        name 'Ron Pressler'
-                    }
-                }
-            }
-        }
+        //     repository(
+        //         url: (isReleaseVersion ?
+	    //                     "https://oss.sonatype.org/service/local/staging/deploy/maven2" :
+	    //                     "https://oss.sonatype.org/content/repositories/snapshots")) {
+        //         // User and Password are taken from ~/.gradle/gradle.properties
+        //         authentication(userName: project.sonatypeUsername, password: project.sonatypePassword)
+        //     }
+        //     pom.project {
+        //         name project.name
+        //         packaging 'jar'
+        //         description project.description
+        //         url project.url
+        //         scm {
+        //             url project.scmUrl
+        //             connection project.scmConnection
+        //             developerConnection project.scmConnection
+        //         }
+        //         licenses {
+        //             license {
+        //                 name project.licenseName
+        //                 url project.licenseUrl
+        //                 distribution 'repo'
+        //             }
+        //         }
+        //         developers {
+        //             developer {
+        //                 id 'pron'
+        //                 name 'Ron Pressler'
+        //             }
+        //         }
+        //     }
+        // }
+        jcenter()
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
-}
+// task wrapper(type: Wrapper) {
+//     gradleVersion = '2.4'
+// }
 
 
 task('run', type: JavaExec, dependsOn:[testClasses]) {
