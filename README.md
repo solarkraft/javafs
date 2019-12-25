@@ -1,11 +1,26 @@
-# JavaFS [![Version](http://img.shields.io/badge/version-0.1.0-blue.svg?style=flat)](https://github.com/puniverse/javafs/releases) [![Release](https://jitpack.io/v/umjammer/javafs.svg)](https://jitpack.io/#umjammer/javafs)
+# JavaFS [![Version](http://img.shields.io/badge/version-0.1.0-blue.svg?style=flat)](https://github.com/puniverse/javafs/releases)
 ## Java filesystems as FUSE
+
+## Words about the "port"
+
+I don't yet know whether I will ever attempt to actually cleanly get it running (since I don't yet know what that would require) similarly to its original form, so far this repo only contains the bare minimum to get it to compile. 
+
+What I have done is roughly: 
+
+- Remove Javadoc (or prevent it from running by adding ** as an excluded path)
+- Remove tests (by commenting out the build step [or not?] and renaming the folder containing them)
+
+I'm a complete noob in the Java ecosystem, so let's see, maybe I'll learn some things. 
 
 ## Requirements
 
-Java 7 and up.
+JDK 13 seems to work. 
 
 Your OS must support FUSE or have it installed.
+
+## Building
+
+`gradle build`. The output JARs will be in `build/libs/`. 
 
 ## Usage
 
@@ -17,9 +32,7 @@ JavaFS.unmount, which unmounts a FUSE filesystem
 
 ## Test
 
-```
-./run.sh [-r] <mountpoint> [<zipfile>]
-```
+Removed. R.I.P.
 
 #### Compatibility
 
