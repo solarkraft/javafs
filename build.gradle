@@ -42,7 +42,7 @@ tasks.withType(JavaExec) {
 
 javadoc {
     options {
-        links = [ "http://docs.oracle.com/javase/7/docs/api/" ]
+        links = [ "https://docs.oracle.com/javase/7/docs/api/" ]
         noDeprecated = true
         addStringOption('public', '-quiet')
     }
@@ -50,6 +50,7 @@ javadoc {
         "co/paralleluniverse/fuse/**",
         "co/paralleluniverse/filesystem/**",
         "jnr/**",
+        "**", 
     ]
 }
 
